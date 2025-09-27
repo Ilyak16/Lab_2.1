@@ -39,7 +39,7 @@
                 </MenuItem>
                 <MenuItem Header="О разработчике" Tag="4" Click="MenuItem_Click" MouseEnter="Button_MouseEnter"/>
             </MenuItem>
-            <MenuItem Name="brushMenu" Header="Кисть" BorderBrush="Navy" BorderThickness="0" 
+            <MenuItem Name="brushMenu" Header="Кисть" BorderBrush="Navy" BorderThickness="0" >
                 <RadioButton GroupName="width_pen" Content="5" Checked="SizeRadioButton_Checked"/>
                 <RadioButton GroupName="width_pen" Content="10" Checked="SizeRadioButton_Checked"/>
                 <RadioButton GroupName="width_pen" Content="15" Checked="SizeRadioButton_Checked"/>
