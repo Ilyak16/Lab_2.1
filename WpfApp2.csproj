@@ -9,13 +9,35 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="drop_17939275.png" />
     <None Remove="icons8-ведро-краски-50.png" />
     <None Remove="man_13305169.png" />
+    <None Remove="Yellow_5428816.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="drop_17939275.png" />
     <Resource Include="icons8-ведро-краски-50.png" />
     <Resource Include="man_13305169.png" />
+    <Resource Include="Yellow_5428816.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="icons\drop_17939275.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="icons\icons8-ведро-краски-50.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="icons\icons8-соблюдайте-чистоту-50.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="icons\man_13305169.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="icons\Yellow_5428816.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
