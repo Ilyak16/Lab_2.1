@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Ink;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -17,8 +18,6 @@ namespace WpfApp2
     public partial class MainWindow : Window
     {
         private double brushSize = 5;
-        private Color brushColor = Colors.Red;
-        private InkCanvasEditingMode editingMode;
         public MainWindow()
         {
             InitializeComponent();
@@ -41,22 +40,19 @@ namespace WpfApp2
                     MessageBox.Show("Разработал студент вки");
                     break;
                 case "5":
-                    Canv_1.EditingMode = editingMode;
-                    if (Canv_1.EditingMode == InkCanvasEditingMode.Ink) 
+                    Canv_1.Visibility = Visibility.Visible;
+                    Canv_1.DefaultDrawingAttributes.Width = brushSize;
+                    Canv_1.DefaultDrawingAttributes.Height = brushSize;
+
+                    if (lbEditingMod.SelectedValue != null)
                     {
-                        Canv_1.EditingMode = InkCanvasEditingMode.Ink;
-                        Canv_1.Visibility = Visibility.Visible;
-                        Canv_1.DefaultDrawingAttributes.Color = brushColor;
-                        Canv_1.DefaultDrawingAttributes.Width = brushSize;
-                        Canv_1.DefaultDrawingAttributes.Height = brushSize;
+                        Canv_1.EditingMode = (InkCanvasEditingMode)lbEditingMod.SelectedValue;
                     }
-                    else if (Canv_1.EditingMode == InkCanvasEditingMode.EraseByPoint)
+                    if (Canv_1.EditingMode == InkCanvasEditingMode.Ink)
                     {
-                        Canv_1.EditingMode = InkCanvasEditingMode.EraseByPoint;
-                        Canv_1.DefaultDrawingAttributes.Width = brushSize;
-                        Canv_1.DefaultDrawingAttributes.Height = brushSize;
+                        Canv_1.DefaultDrawingAttributes = (DrawingAttributes)lbClolors.SelectedValue;
                     }
-                        break;
+                    break;
             }
         }
 
@@ -85,35 +81,6 @@ namespace WpfApp2
         private void SizeRadioButton_Checked(object sender, RoutedEventArgs e)
         {
             brushSize = double.Parse((sender as RadioButton).Content.ToString());
-        }
-
-        private void ColorRadioButton_Checked(object sender, RoutedEventArgs e)
-        {
-            var radioButton = sender as RadioButton;
-            if (radioButton != null)
-            {
-                brushColor = radioButton.Content.ToString() switch
-                {
-                    "Red" => brushColor = Colors.Red,
-                    "Blue" => brushColor = Colors.Blue,
-                    "Green" => brushColor = Colors.Green,
-                    _ => brushColor = Colors.Red,
-                };
-            }
-        }
-
-        private void RezRadioButton_Checked(object sender, RoutedEventArgs e)
-        {
-            var radioButton = sender as RadioButton;
-            if (radioButton != null)
-            {
-                var per = radioButton.Content.ToString() switch
-                {
-                    "Ink" => editingMode = InkCanvasEditingMode.Ink,
-                    "Remote" => editingMode = InkCanvasEditingMode.EraseByPoint,
-                    _ => editingMode = InkCanvasEditingMode.Ink,
-                };
-            }
         }
     }
 }

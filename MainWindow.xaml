@@ -6,6 +6,19 @@
         xmlns:local="clr-namespace:WpfApp2"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <x:Array x:Key="MyEditingModes" Type="InkCanvasEditingMode">
+            <x:Static Member="InkCanvasEditingMode.Ink"/>
+            <x:Static Member="InkCanvasEditingMode.Select"/>
+            <x:Static Member="InkCanvasEditingMode.EraseByPoint"/>
+            <x:Static Member="InkCanvasEditingMode.EraseByStroke"/>
+        </x:Array>
+        <x:Array x:Key="MyColor" Type="{x:Type DrawingAttributes}">
+            <DrawingAttributes Color="Red"/>
+            <DrawingAttributes Color="Blue"/>
+            <DrawingAttributes Color="Green"/>
+        </x:Array>
+    </Window.Resources>
     <Grid x:Name="gr">
         <Grid.RowDefinitions>
             <RowDefinition MaxHeight="20"/>
@@ -17,7 +30,7 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Menu Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0">
+        <Menu Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" >
             <MenuItem Header="Взаимодействие" BorderBrush="Navy" BorderThickness="0" Height="20" Tag="0" MouseEnter="Button_MouseEnter">
                 <MenuItem Header="Изменить фон">
                     <MenuItem Header="Желтый" Name="Yallow" Tag="1" Click="MenuItem_Click" MouseEnter="Button_MouseEnter"/>
@@ -26,17 +39,21 @@
                 </MenuItem>
                 <MenuItem Header="О разработчике" Tag="4" Click="MenuItem_Click" MouseEnter="Button_MouseEnter"/>
             </MenuItem>
-            <MenuItem Name="brushMenu" Header="Кисть" BorderBrush="Navy" BorderThickness="0">
+            <MenuItem Name="brushMenu" Header="Кисть" BorderBrush="Navy" BorderThickness="0" 
                 <RadioButton GroupName="width_pen" Content="5" Checked="SizeRadioButton_Checked"/>
                 <RadioButton GroupName="width_pen" Content="10" Checked="SizeRadioButton_Checked"/>
                 <RadioButton GroupName="width_pen" Content="15" Checked="SizeRadioButton_Checked"/>
                 <Separator/>
-                <RadioButton GroupName="color_pen" Content="Blue" Checked="ColorRadioButton_Checked"/>
-                <RadioButton GroupName="color_pen" Content="Red" Checked="ColorRadioButton_Checked"/>
-                <RadioButton GroupName="color_pen" Content="Green" Checked="ColorRadioButton_Checked"/>
+                <ListBox x:Name="lbClolors" ItemsSource="{StaticResource MyColor}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=Color}"></TextBlock>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
                 <Separator/>
-                <RadioButton Content="Ink" Checked="RezRadioButton_Checked"/>
-                <RadioButton Content="Remote" Checked="RezRadioButton_Checked"/>
+                <ListBox x:Name="lbEditingMod" ItemsSource="{StaticResource MyEditingModes}">
+                </ListBox>
                 <MenuItem Header="Создать кисть" Tag="5" Click="MenuItem_Click"/>
             </MenuItem>
         </Menu>
@@ -60,10 +77,10 @@
                 <Image Source="/Yellow_5428816.png" Width="64" Height="64"></Image>
             </Button>
         </ToolBar>
-        <InkCanvas Grid.Row="2" Grid.ColumnSpan="2" Visibility="Collapsed" EditingMode="Ink" x:Name="Canv_1">
-            <InkCanvas.DefaultDrawingAttributes>
-                <DrawingAttributes/>
-            </InkCanvas.DefaultDrawingAttributes>
+        <InkCanvas Grid.Row="2" Grid.ColumnSpan="2" Visibility="Collapsed" 
+                   EditingMode="{Binding ElementName=lbEditingMod, Path=SelectedValue}" 
+                   x:Name="Canv_1" 
+                   DefaultDrawingAttributes="{Binding ElementName= lbClolors, Path=SelectedValue}">
         </InkCanvas>
     </Grid>
 </Window>
